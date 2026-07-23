@@ -13,7 +13,7 @@ export default function SectionHeading({
         <p className="text-xs font-mono uppercase tracking-widest text-muted mb-1">
           {eyebrow}
         </p>
-        <h2 className="font-display text-2xl md:text-3xl italic">{title}</h2>
+        <h2 className="font-display text-2xl md:text-3xl italic text-ink dark:text-white">{title}</h2>
       </div>
       {action}
     </div>

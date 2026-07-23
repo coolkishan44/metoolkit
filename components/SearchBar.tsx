@@ -29,7 +29,7 @@ export default function SearchBar() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search 'sales call transcription' or 'ai design'…"
-          className="w-full rounded-2xl border border-line bg-surface px-6 py-5 text-lg font-display placeholder:text-muted/70 focus-visible:outline-2 focus-visible:outline-indigo shadow-sm"
+          className="w-full rounded-2xl border border-line dark:border-white/10 bg-surface dark:bg-white/[0.03] text-ink dark:text-white px-6 py-5 text-lg font-display placeholder:text-muted/70 focus-visible:outline-2 focus-visible:outline-indigo shadow-sm dark:shadow-none"
         />
       </div>
       <p className="mt-3 text-sm font-mono tabular text-muted">

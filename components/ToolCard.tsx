@@ -2,19 +2,19 @@ import Link from "next/link";
 import type { Tool } from "@/lib/data";
 
 const pricingStyle: Record<Tool["pricing"], string> = {
-  Free: "bg-indigo-soft text-indigo-dark",
-  Freemium: "bg-amber-soft text-amber-dark",
-  Paid: "bg-ink/5 text-ink/70"
+  Free: "bg-indigo-soft text-indigo-dark dark:bg-indigo/15 dark:text-indigo",
+  Freemium: "bg-amber-soft text-amber-dark dark:bg-amber/15 dark:text-amber",
+  Paid: "bg-ink/5 text-ink/70 dark:bg-white/10 dark:text-white/70"
 };
 
 export default function ToolCard({ tool }: { tool: Tool }) {
   return (
     <Link
       href={`/tools/${tool.slug}`}
-      className="group block rounded-xl border border-line bg-surface p-6 hover:border-indigo hover:shadow-md transition-all"
+      className="group block rounded-xl border border-line dark:border-white/10 bg-surface dark:bg-white/[0.03] p-6 hover:border-indigo hover:shadow-md dark:hover:shadow-none transition-all"
     >
       <div className="flex items-start justify-between gap-3">
-        <h3 className="font-display text-lg leading-snug group-hover:text-indigo transition-colors">
+        <h3 className="font-display text-lg leading-snug text-ink dark:text-white group-hover:text-indigo transition-colors">
           {tool.name}
         </h3>
         {tool.isAI && (
