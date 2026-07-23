@@ -1,106 +1,35 @@
-import Link from "next/link";
-import Hero from "@/components/Hero";
-import PopularCategories from "@/components/PopularCategories";
-import WhyChooseUs from "@/components/WhyChooseUs";
-import Stats from "@/components/Stats";
-import Testimonials from "@/components/Testimonials";
-import FAQ from "@/components/FAQ";
-import Newsletter from "@/components/Newsletter";
-import ToolCard from "@/components/ToolCard";
-import SectionHeading from "@/components/SectionHeading";
-import Reveal from "@/components/Reveal";
-import { tools, blogPosts } from "@/lib/data";
+import { Suspense } from "react";
+import type { Metadata } from "next";
+import ToolsExplorer from "@/components/ToolsExplorer";
+import { tools, categories } from "@/lib/data";
 
-export default function HomePage() {
-  const featured = tools.filter((t) => t.featured);
-  const aiTools = tools.filter((t) => t.isAI).slice(0, 3);
+export const metadata: Metadata = {
+  title: "AI tools",
+  description: "Every AI-powered tool in the index, searchable by category and pricing."
+};
+
+export default function AiToolsPage() {
+  const aiTools = tools.filter((t) => t.isAI);
+  const aiCategorySlugs = new Set(aiTools.map((t) => t.category.toLowerCase()));
+  const aiCategories = categories.filter((c) => aiCategorySlugs.has(c.slug));
 
   return (
-    <>
-      <Hero />
+    <div className="max-w-content mx-auto px-6 py-14">
+      <p className="text-xs font-mono uppercase tracking-widest text-muted mb-2">
+        Spotlight
+      </p>
+      <h1 className="font-display text-3xl md:text-4xl mb-2 text-ink dark:text-white">AI tools</h1>
+      <p className="text-muted mb-8 max-w-xl">
+        Every tool here uses AI as its core mechanism — not just a chatbot bolted onto an existing product.
+      </p>
 
-      {/* Featured tools */}
-      <section className="max-w-content mx-auto px-6 py-14 hairline">
-        <Reveal>
-          <SectionHeading
-            eyebrow="Hand-picked"
-            title="Featured this week"
-            action={
-              <Link href="/tools" className="text-sm text-indigo hover:underline">
-                View all tools →
-              </Link>
-            }
-          />
-        </Reveal>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {featured.map((tool, i) => (
-            <Reveal key={tool.slug} delay={((i % 4) + 1) as 1 | 2 | 3 | 4}>
-              <ToolCard tool={tool} />
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <PopularCategories />
-
-      {/* AI tools spotlight */}
-      <section className="max-w-content mx-auto px-6 py-14 hairline">
-        <Reveal>
-          <SectionHeading
-            eyebrow="Spotlight"
-            title="AI tools worth your trial account"
-            action={
-              <Link href="/ai-tools" className="text-sm text-indigo hover:underline">
-                Browse AI tools →
-              </Link>
-            }
-          />
-        </Reveal>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {aiTools.map((tool, i) => (
-            <Reveal key={tool.slug} delay={((i % 4) + 1) as 1 | 2 | 3 | 4}>
-              <ToolCard tool={tool} />
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <WhyChooseUs />
-      <Stats />
-      <Testimonials />
-      <FAQ />
-
-      {/* Blog strip */}
-      <section className="max-w-content mx-auto px-6 py-14 hairline">
-        <Reveal>
-          <SectionHeading
-            eyebrow="From the index"
-            title="Comparisons and field notes"
-            action={
-              <Link href="/blog" className="text-sm text-indigo hover:underline">
-                Read the blog →
-              </Link>
-            }
-          />
-        </Reveal>
-        <div className="grid md:grid-cols-3 gap-6">
-          {blogPosts.map((post, i) => (
-            <Reveal key={post.slug} delay={((i % 4) + 1) as 1 | 2 | 3 | 4}>
-              <Link href={`/blog/${post.slug}`} className="group block">
-                <p className="text-xs font-mono text-muted tabular mb-2">
-                  {post.date} · {post.readMinutes} min read
-                </p>
-                <h3 className="font-display text-lg leading-snug text-ink dark:text-white group-hover:text-indigo transition-colors mb-2">
-                  {post.title}
-                </h3>
-                <p className="text-sm text-muted leading-relaxed">{post.excerpt}</p>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      <Newsletter />
-    </>
+      <Suspense fallback={<p className="text-sm text-muted">Loading…</p>}>
+        <ToolsExplorer
+          tools={aiTools}
+          categories={aiCategories}
+          totalIndexed={aiTools.length}
+        />
+      </Suspense>
+    </div>
   );
 }
