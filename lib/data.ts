@@ -39,6 +39,7 @@ export type BlogPost = {
   excerpt: string;
   date: string;
   readMinutes: number;
+  content: string[];
 };
 
 export const tools: Tool[] = [
@@ -181,23 +182,50 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Most tools sound the same out of the box. Here is what actually separates them once you customize.",
     date: "2026-07-10",
-    readMinutes: 6
+    readMinutes: 6,
+    content: [
+      "Every AI writing tool demo looks the same: type a prompt, get clean paragraphs back. The gap shows up later, once you try to make it sound like you instead of a generic assistant.",
+      "The first thing worth testing is how a tool handles a style sample. Feed it three or four pieces you've already published and ask it to write something new in that voice. Tools that only accept a short 'tone' setting (formal, casual, friendly) tend to flatten everything into the same middle-of-the-road voice.",
+      "Second, check how much editing survives a rewrite. Draft the same brief in two or three tools, then count how many sentences you'd keep unchanged. This tells you more than any feature list.",
+      "Team workflow matters more than people expect going in. If more than one person is drafting, look for shared style guides and version history — not just a shared login.",
+      "Pricing tiers on writing tools are usually built around word count or number of documents, not features. Read the fine print on what happens when you hit the cap mid-project.",
+      "Our take: shortlist two tools, run the same real brief through both, and let the edit count decide. A tool that needs less cleanup wins even if its raw output reads slightly worse on the first pass."
+    ]
   },
   {
     slug: "sales-call-transcription-compared",
     title: "We compared 7 sales call transcription tools on accuracy",
     excerpt: "Word-error rates, speaker separation, and pricing, tested on the same 20 calls.",
     date: "2026-07-02",
-    readMinutes: 8
+    readMinutes: 8,
+    content: [
+      "Transcription accuracy claims on pricing pages are close to useless — every vendor quotes their best-case number. So we ran the same 20 recorded sales calls (mixed accents, some background noise, two calls with crosstalk) through seven tools.",
+      "Speaker separation was the biggest differentiator, not raw word accuracy. Most tools now sit in a similar accuracy band on clean audio. Where they diverged was correctly attributing overlapping speech to the right speaker — some tools merged both voices into one block.",
+      "Industry-specific vocabulary (product names, acronyms) tripped up general-purpose transcription tools more than accent did. Tools with a custom-vocabulary upload option handled this noticeably better.",
+      "Turnaround time varied from near-instant to several minutes per call, which matters if reps want a summary before their next meeting.",
+      "On pricing, per-minute billing punished longer discovery calls, while flat monthly tiers with a minute cap worked out cheaper for high-call-volume teams.",
+      "If your calls are mostly one-on-one and clean, most tools will serve you fine. If you deal with group calls or noisy environments, weight your evaluation toward speaker separation over marketed accuracy numbers."
+    ]
   },
   {
     slug: "free-vs-paid-design-tools",
     title: "Free vs paid AI design tools: where the gap actually shows up",
     excerpt: "Free tiers are good enough for drafts. Here's exactly where they fall short.",
     date: "2026-06-24",
-    readMinutes: 5
+    readMinutes: 5,
+    content: [
+      "Free tiers of AI design tools have gotten good enough that for a single social post or quick mockup, most people won't notice a difference from paid plans.",
+      "The gap opens up around resolution and usage rights. Free tiers commonly cap export resolution or watermark outputs — fine for internal drafts, a problem the moment something goes to print or a paid ad campaign.",
+      "Batch generation is usually gated behind paid tiers. If you're producing variations for A/B testing or a full product catalog, doing it one image at a time on a free plan gets slow fast.",
+      "Commercial usage rights are the one to actually read carefully. Some free tiers technically allow commercial use; others restrict it to personal projects only, and that line isn't always obvious from the pricing page.",
+      "Our practical rule: prototype and get sign-off on free tiers, then upgrade only once a design is heading to production. Paying up front for volume you don't need yet is the most common waste we see."
+    ]
   }
 ];
+
+export function getBlogPostBySlug(slug: string): BlogPost | undefined {
+  return blogPosts.find((p) => p.slug === slug);
+}
 
 export const totalToolsIndexed = 220;
 
