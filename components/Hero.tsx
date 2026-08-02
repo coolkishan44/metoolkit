@@ -1,5 +1,6 @@
 import SearchBar from "@/components/SearchBar";
 import CategoryChip from "@/components/CategoryChip";
+import QuickTools from "@/components/QuickTools";
 import Reveal from "@/components/Reveal";
 import { categories } from "@/lib/data";
 
@@ -37,7 +38,14 @@ export default function Hero() {
           <SearchBar />
         </Reveal>
 
-        <Reveal delay={3} className="mt-8 flex flex-wrap gap-3">
+        <Reveal delay={3} className="mt-6">
+          <p className="text-xs font-mono uppercase tracking-widest text-muted mb-3">
+            Or jump straight to a tool
+          </p>
+          <QuickTools />
+        </Reveal>
+
+        <Reveal delay={4} className="mt-8 flex flex-wrap gap-3">
           {categories.slice(0, 6).map((c) => (
             <CategoryChip key={c.slug} category={c} />
           ))}
