@@ -7,6 +7,8 @@ import ThemeToggle from "@/components/ThemeToggle";
 const navItems = [
   { href: "/tools", label: "Tools" },
   { href: "/ai-tools", label: "AI Tools" },
+  { href: "/cash-counter", label: "Cash Counter" },
+  { href: "/calculator", label: "Calculator" },
   { href: "/blog", label: "Blog" }
 ];
 
