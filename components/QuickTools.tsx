@@ -15,6 +15,21 @@ const quickTools = [
     href: "/tax-calculator",
     label: "Tax Calculator",
     description: "Old vs new regime (India)"
+  },
+  {
+    href: "/emi-calculator",
+    label: "EMI Calculator",
+    description: "Loan EMI & interest"
+  },
+  {
+    href: "/percentage-calculator",
+    label: "Percentage Calculator",
+    description: "3 common percent calcs"
+  },
+  {
+    href: "/age-calculator",
+    label: "Age Calculator",
+    description: "Exact age & next birthday"
   }
 ];
 
