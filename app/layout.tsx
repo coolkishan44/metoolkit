@@ -8,38 +8,40 @@ const siteUrl = "https://metoolkit.vercel.app";
 
 // Fonts are loaded via Google Fonts <link> tags in <head> below instead of
 // next/font/google. next/font/google fetches font files at BUILD time — if
-// the build server (or a sandboxed/offline environment) can't reach
-// fonts.googleapis.com, the entire build fails. Link tags load in the
-// browser instead, so the build never depends on that network call.
+// the build server can't reach fonts.googleapis.com, the entire build fails.
+// Link tags load in the browser instead, so the build never depends on
+// that network call.
 
 export const metadata: Metadata = {
+  verification: { google: "OJRQ8rIaLUAol4bCgviFVpSFCVroza2efg4Lk727pqE" },
   metadataBase: new URL(siteUrl),
   title: {
-    default: "MeToolkit — The AI & Business Toolkit Directory",
+    default: "MeToolkit — Free Online Calculators & Everyday Tools",
     template: "%s — MeToolkit"
   },
   description:
-    "Discover, compare, and use the best AI and business tools in one place. MeToolkit indexes 1000+ tools by category so you find the right one in minutes, not hours.",
+    "Free, fast calculators for everyday use — EMI, income tax, cash counting, percentage, and age. No sign-up, runs entirely in your browser.",
   keywords: [
-    "AI tools directory",
-    "business tools",
-    "AI toolkit",
-    "productivity tools",
+    "EMI calculator",
+    "income tax calculator India",
+    "cash denomination counter",
+    "percentage calculator",
+    "age calculator",
     "MeToolkit"
   ],
   openGraph: {
     type: "website",
     url: siteUrl,
     siteName: "MeToolkit",
-    title: "MeToolkit — The AI & Business Toolkit Directory",
+    title: "MeToolkit — Free Online Calculators & Everyday Tools",
     description:
-      "Discover, compare, and use the best AI and business tools in one place."
+      "Free, fast calculators for everyday use — EMI, income tax, cash counting, percentage, and age."
   },
   twitter: {
     card: "summary_large_image",
-    title: "MeToolkit — The AI & Business Toolkit Directory",
+    title: "MeToolkit — Free Online Calculators & Everyday Tools",
     description:
-      "Discover, compare, and use the best AI and business tools in one place."
+      "Free, fast calculators for everyday use — EMI, income tax, cash counting, percentage, and age."
   },
   alternates: {
     canonical: siteUrl
