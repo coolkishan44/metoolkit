@@ -13,7 +13,7 @@ const siteUrl = "https://metoolkit.vercel.app";
 // that network call.
 
 export const metadata: Metadata = {
-  verification: { google: "OJRQ8rIaLUAol4bCgviFVpSFCVroza2efg4Lk727pqE" },
+  verification: { google: ["OJRQ8rIaLUAol4bCgviFVpSFCVroza2efg4Lk727pqE", "jz9d-qt2n-CdhTKCvMAURgPtopZV2uEwQLc6D5yMfTo"] },
   metadataBase: new URL(siteUrl),
   title: {
     default: "MeToolkit — Free Online Calculators & Everyday Tools",
