@@ -6,12 +6,6 @@ import ThemeProvider from "@/components/ThemeProvider";
 
 const siteUrl = "https://metoolkit.vercel.app";
 
-// Fonts are loaded via Google Fonts <link> tags in <head> below instead of
-// next/font/google. next/font/google fetches font files at BUILD time — if
-// the build server can't reach fonts.googleapis.com, the entire build fails.
-// Link tags load in the browser instead, so the build never depends on
-// that network call.
-
 export const metadata: Metadata = {
   verification: { google: ["OJRQ8rIaLUAol4bCgviFVpSFCVroza2efg4Lk727pqE", "jz9d-qt2n-CdhTKCvMAURgPtopZV2uEwQLc6D5yMfTo"] },
   metadataBase: new URL(siteUrl),
@@ -77,6 +71,11 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9290277776252328"
+          crossOrigin="anonymous"
         />
       </head>
       <body className="font-sans antialiased flex min-h-screen flex-col">
