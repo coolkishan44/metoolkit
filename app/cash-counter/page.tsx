@@ -21,27 +21,16 @@ const DENOMINATIONS: Denom[] = [
 ];
 
 type Counts = Record<number, number>;
-
 const emptyCounts: Counts = Object.fromEntries(DENOMINATIONS.map((d) => [d.value, 0]));
 
-type HistoryEntry = {
-  id: string;
-  timestamp: number;
-  counts: Counts;
-  total: number;
-};
-
+type HistoryEntry = { id: string; timestamp: number; counts: Counts; total: number };
 const HISTORY_KEY = "metoolkit-cash-counter-history";
 
 function formatINR(n: number): string {
   return "₹" + n.toLocaleString("en-IN");
 }
 
-const ONES = [
-  "", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
-  "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen",
-  "Eighteen", "Nineteen"
-];
+const ONES = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
 const TENS = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
 
 function twoDigitWords(n: number): string {
@@ -64,7 +53,6 @@ function threeDigitWords(n: number): string {
 
 function amountInWords(total: number): string {
   if (total === 0) return "Zero Rupees Only";
-
   let n = total;
   const crore = Math.floor(n / 10000000);
   n %= 10000000;
@@ -83,33 +71,25 @@ function amountInWords(total: number): string {
   return (parts.join(" ") || "Zero") + " Rupees Only";
 }
 
-export default function CashCounterPage() {
+export default function CashCounterClient() {
   const [counts, setCounts] = useState<Counts>(emptyCounts);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [copied, setCopied] = useState(false);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Load history from localStorage on mount
   useEffect(() => {
     try {
       const raw = localStorage.getItem(HISTORY_KEY);
       if (raw) setHistory(JSON.parse(raw));
     } catch {
-      // ignore corrupted local storage
+      // ignore
     }
   }, []);
 
   const grandTotal = DENOMINATIONS.reduce((sum, d) => sum + d.value * (counts[d.value] || 0), 0);
-  const totalNotes = DENOMINATIONS.filter((d) => d.kind !== "Coin").reduce(
-    (sum, d) => sum + (counts[d.value] || 0),
-    0
-  );
-  const totalCoins = DENOMINATIONS.filter((d) => d.kind === "Coin").reduce(
-    (sum, d) => sum + (counts[d.value] || 0),
-    0
-  );
+  const totalNotes = DENOMINATIONS.filter((d) => d.kind !== "Coin").reduce((sum, d) => sum + (counts[d.value] || 0), 0);
+  const totalCoins = DENOMINATIONS.filter((d) => d.kind === "Coin").reduce((sum, d) => sum + (counts[d.value] || 0), 0);
 
-  // Debounced auto-save to history whenever the total settles on a new value
   useEffect(() => {
     if (saveTimer.current) clearTimeout(saveTimer.current);
     if (grandTotal === 0) return;
@@ -117,17 +97,12 @@ export default function CashCounterPage() {
     saveTimer.current = setTimeout(() => {
       setHistory((prev) => {
         if (prev[0]?.total === grandTotal) return prev;
-        const entry: HistoryEntry = {
-          id: `${Date.now()}`,
-          timestamp: Date.now(),
-          counts: { ...counts },
-          total: grandTotal
-        };
+        const entry: HistoryEntry = { id: `${Date.now()}`, timestamp: Date.now(), counts: { ...counts }, total: grandTotal };
         const next = [entry, ...prev].slice(0, 8);
         try {
           localStorage.setItem(HISTORY_KEY, JSON.stringify(next));
         } catch {
-          // storage full or unavailable — history just won't persist
+          // ignore
         }
         return next;
       });
@@ -179,7 +154,7 @@ export default function CashCounterPage() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // clipboard blocked — silently ignore, button just won't confirm
+      // ignore
     }
   }
 
@@ -261,8 +236,7 @@ export default function CashCounterPage() {
       </div>
 
       <div className="grid lg:grid-cols-[1fr_320px] gap-8">
-        {/* Denomination grid */}
-        <div className="rounded-2xl border border-line dark:border-white/10 bg-surface dark:bg-white/[0.03] overflow-hidden print:border-black print:rounded-none">
+        <div className="rounded-2xl border border-line dark:border-white/10 bg-surface dark:bg-white/[0.03] overflow-hidden print:border-black print:rounded-none animate-fade-up transition-shadow duration-300 hover:shadow-xl hover:shadow-indigo/5">
           <div className="grid grid-cols-[1fr_100px_120px] gap-2 px-5 py-3 border-b border-line dark:border-white/10 text-xs font-mono uppercase tracking-widest text-muted print:text-black">
             <span>Denomination</span>
             <span className="text-right">Count</span>
@@ -270,14 +244,9 @@ export default function CashCounterPage() {
           </div>
 
           {DENOMINATIONS.map((d) => (
-            <div
-              key={d.value}
-              className="grid grid-cols-[1fr_100px_120px] gap-2 items-center px-5 py-3 border-b border-line dark:border-white/10 last:border-0"
-            >
+            <div key={d.value} className="grid grid-cols-[1fr_100px_120px] gap-2 items-center px-5 py-3 border-b border-line dark:border-white/10 last:border-0">
               <div>
-                <span className="font-display text-lg text-ink dark:text-white print:text-black">
-                  {d.label}
-                </span>
+                <span className="font-display text-lg text-ink dark:text-white print:text-black">{d.label}</span>
                 <span className="text-xs text-muted ml-2 print:text-black">{d.kind}</span>
               </div>
               <input
@@ -286,11 +255,9 @@ export default function CashCounterPage() {
                 value={counts[d.value] === 0 ? "" : counts[d.value]}
                 onChange={(e) => updateCount(d.value, e.target.value)}
                 placeholder="0"
-                className="print:hidden w-full text-right rounded-lg border border-line dark:border-white/10 bg-paper dark:bg-[#101118] text-ink dark:text-white px-3 py-2 text-sm font-mono focus-visible:outline-2 focus-visible:outline-indigo"
+                className="print:hidden w-full text-right rounded-lg border border-line dark:border-white/10 bg-paper dark:bg-[#101118] text-ink dark:text-white px-3 py-2 text-sm font-mono transition-all duration-200 focus-visible:outline-2 focus-visible:outline-indigo focus:shadow-[0_0_0_3px_rgba(45,91,255,0.15)]"
               />
-              <span className="hidden print:inline text-right font-mono">
-                {counts[d.value] || 0}
-              </span>
+              <span className="hidden print:inline text-right font-mono">{counts[d.value] || 0}</span>
               <span className="text-right font-mono tabular text-ink dark:text-white print:text-black">
                 {formatINR(d.value * (counts[d.value] || 0))}
               </span>
@@ -298,9 +265,7 @@ export default function CashCounterPage() {
           ))}
 
           <div className="grid grid-cols-[1fr_100px_120px] gap-2 items-center px-5 py-4 bg-ink dark:bg-white/[0.06] print:bg-transparent">
-            <span className="font-display text-lg text-paper dark:text-white print:text-black">
-              Grand Total
-            </span>
+            <span className="font-display text-lg text-paper dark:text-white print:text-black">Grand Total</span>
             <span />
             <span className="text-right font-mono text-lg tabular text-paper dark:text-white print:text-black">
               {formatINR(grandTotal)}
@@ -318,41 +283,17 @@ export default function CashCounterPage() {
           </div>
         </div>
 
-        {/* Actions + history */}
         <div className="print:hidden space-y-6">
           <div className="rounded-2xl border border-line dark:border-white/10 bg-surface dark:bg-white/[0.03] p-5">
-            <p className="text-xs font-mono uppercase tracking-widest text-muted mb-4">
-              Actions
-            </p>
+            <p className="text-xs font-mono uppercase tracking-widest text-muted mb-4">Actions</p>
             <div className="grid grid-cols-2 gap-2">
-              <button
-                onClick={reset}
-                className="rounded-lg border border-line dark:border-white/10 text-ink dark:text-white text-sm py-2.5 hover:border-indigo hover:text-indigo transition-colors"
-              >
-                Reset
-              </button>
-              <button
-                onClick={printSheet}
-                className="rounded-lg border border-line dark:border-white/10 text-ink dark:text-white text-sm py-2.5 hover:border-indigo hover:text-indigo transition-colors"
-              >
-                Print
-              </button>
-              <button
-                onClick={downloadPDF}
-                className="rounded-lg border border-line dark:border-white/10 text-ink dark:text-white text-sm py-2.5 hover:border-indigo hover:text-indigo transition-colors"
-              >
-                Download PDF
-              </button>
-              <button
-                onClick={copySummary}
-                className="rounded-lg border border-line dark:border-white/10 text-ink dark:text-white text-sm py-2.5 hover:border-indigo hover:text-indigo transition-colors"
-              >
+              <button onClick={reset} className="rounded-lg border border-line dark:border-white/10 text-ink dark:text-white text-sm py-2.5 hover:border-indigo hover:text-indigo hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:scale-95 transition-all duration-150">Reset</button>
+              <button onClick={printSheet} className="rounded-lg border border-line dark:border-white/10 text-ink dark:text-white text-sm py-2.5 hover:border-indigo hover:text-indigo hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:scale-95 transition-all duration-150">Print</button>
+              <button onClick={downloadPDF} className="rounded-lg border border-line dark:border-white/10 text-ink dark:text-white text-sm py-2.5 hover:border-indigo hover:text-indigo hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:scale-95 transition-all duration-150">Download PDF</button>
+              <button onClick={copySummary} className="rounded-lg border border-line dark:border-white/10 text-ink dark:text-white text-sm py-2.5 hover:border-indigo hover:text-indigo hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:scale-95 transition-all duration-150">
                 {copied ? "Copied!" : "Copy Summary"}
               </button>
-              <button
-                onClick={shareOnWhatsApp}
-                className="col-span-2 rounded-lg bg-indigo text-white text-sm py-2.5 hover:bg-indigo-dark transition-colors"
-              >
+              <button onClick={shareOnWhatsApp} className="col-span-2 rounded-lg bg-indigo text-white text-sm py-2.5 hover:bg-indigo-dark hover:-translate-y-0.5 hover:shadow-lg hover:shadow-indigo/40 active:translate-y-0 active:scale-95 transition-all duration-150">
                 Share on WhatsApp
               </button>
             </div>
@@ -360,38 +301,22 @@ export default function CashCounterPage() {
 
           <div className="rounded-2xl border border-line dark:border-white/10 bg-surface dark:bg-white/[0.03] p-5">
             <div className="flex items-center justify-between mb-4">
-              <p className="text-xs font-mono uppercase tracking-widest text-muted">
-                Recent counts
-              </p>
+              <p className="text-xs font-mono uppercase tracking-widest text-muted">Recent counts</p>
               {history.length > 0 && (
-                <button
-                  onClick={clearHistory}
-                  className="text-xs text-muted hover:text-indigo transition-colors"
-                >
-                  Clear
-                </button>
+                <button onClick={clearHistory} className="text-xs text-muted hover:text-indigo transition-colors">Clear</button>
               )}
             </div>
-
             {history.length === 0 ? (
               <p className="text-sm text-muted">Nothing saved yet.</p>
             ) : (
               <ul className="space-y-2">
                 {history.map((entry) => (
                   <li key={entry.id}>
-                    <button
-                      onClick={() => restoreFromHistory(entry)}
-                      className="w-full flex items-center justify-between rounded-lg border border-line dark:border-white/10 px-3 py-2 text-left hover:border-indigo transition-colors"
-                    >
+                    <button onClick={() => restoreFromHistory(entry)} className="w-full flex items-center justify-between rounded-lg border border-line dark:border-white/10 px-3 py-2 text-left hover:border-indigo transition-colors">
                       <span className="text-xs text-muted">
-                        {new Date(entry.timestamp).toLocaleTimeString("en-IN", {
-                          hour: "2-digit",
-                          minute: "2-digit"
-                        })}
+                        {new Date(entry.timestamp).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}
                       </span>
-                      <span className="font-mono text-sm tabular text-ink dark:text-white">
-                        {formatINR(entry.total)}
-                      </span>
+                      <span className="font-mono text-sm tabular text-ink dark:text-white">{formatINR(entry.total)}</span>
                     </button>
                   </li>
                 ))}
