@@ -25,7 +25,7 @@ function calculate(a: number, b: number, op: string): number {
   }
 }
 
-export default function CalculatorPage() {
+export default function CalculatorClient() {
   const [display, setDisplay] = useState("0");
   const [stored, setStored] = useState<number | null>(null);
   const [pendingOp, setPendingOp] = useState<string | null>(null);
@@ -51,17 +51,14 @@ export default function CalculatorPage() {
       setOverwrite(true);
       return;
     }
-
     if (op === "±") {
       setDisplay((current * -1).toString());
       return;
     }
-
     if (op === "%") {
       setDisplay((current / 100).toString());
       return;
     }
-
     if (op === "=") {
       if (stored !== null && pendingOp) {
         const result = calculate(stored, current, pendingOp);
@@ -72,7 +69,6 @@ export default function CalculatorPage() {
       }
       return;
     }
-
     if (stored !== null && pendingOp && !overwrite) {
       const result = calculate(stored, current, pendingOp);
       setStored(result);
@@ -100,8 +96,8 @@ export default function CalculatorPage() {
         A straightforward calculator for everyday math — no ads, no sign-up.
       </p>
 
-      <div className="max-w-sm rounded-2xl border border-line dark:border-white/10 bg-surface dark:bg-white/[0.03] p-5 shadow-sm dark:shadow-none">
-        <div className="mb-4 rounded-xl bg-paper dark:bg-[#101118] border border-line dark:border-white/10 px-4 py-6 text-right">
+      <div className="max-w-sm rounded-2xl border border-line dark:border-white/10 bg-surface dark:bg-white/[0.03] p-5 shadow-sm dark:shadow-none animate-fade-up transition-shadow duration-300 hover:shadow-xl hover:shadow-indigo/5">
+        <div className="mb-4 rounded-xl bg-paper dark:bg-[#101118] border border-line dark:border-white/10 px-4 py-6 text-right transition-shadow duration-300 focus-within:shadow-[0_0_0_3px_rgba(45,91,255,0.15)]">
           <p className="font-mono text-3xl tabular text-ink dark:text-white break-all">
             {display}
           </p>
@@ -116,14 +112,14 @@ export default function CalculatorPage() {
               <button
                 key={`${btn}-${i}`}
                 onClick={() => (isDigit ? pressDigit(btn) : pressOperator(btn))}
-                className={`h-14 rounded-xl font-mono text-lg transition-colors ${
+                className={`h-14 rounded-xl font-mono text-lg transition-all duration-150 ease-out hover:-translate-y-0.5 active:translate-y-0 active:scale-95 ${
                   isZero ? "col-span-2" : ""
                 } ${
                   isEquals
-                    ? "bg-indigo text-white hover:bg-indigo-dark"
+                    ? "bg-indigo text-white hover:bg-indigo-dark hover:shadow-lg hover:shadow-indigo/40"
                     : isDigit
-                    ? "bg-paper dark:bg-white/[0.06] text-ink dark:text-white hover:bg-line dark:hover:bg-white/[0.12]"
-                    : "bg-ink/5 dark:bg-white/[0.08] text-ink dark:text-white hover:bg-ink/10 dark:hover:bg-white/[0.15]"
+                    ? "bg-paper dark:bg-white/[0.06] text-ink dark:text-white hover:bg-line dark:hover:bg-white/[0.12] hover:shadow-md"
+                    : "bg-ink/5 dark:bg-white/[0.08] text-ink dark:text-white hover:bg-ink/10 dark:hover:bg-white/[0.15] hover:shadow-md"
                 }`}
               >
                 {btn}
