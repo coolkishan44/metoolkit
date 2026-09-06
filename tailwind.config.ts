@@ -9,21 +9,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        paper: "#FAFAF7",
+        paper: "#FAF9F5",
         surface: "#FFFFFF",
-        ink: "#1A1B23",
-        muted: "#6B6E7C",
-        line: "#E4E3DD",
-        indigo: {
-          DEFAULT: "#2D5BFF",
-          dark: "#1F3FCB",
-          soft: "#EEF1FF"
-        },
-        amber: {
-          DEFAULT: "#E8A33D",
-          dark: "#C4841F",
-          soft: "#FCF1DF"
-        }
+        ink: "#16231D",
+        muted: "#69746A",
+        line: "#E2E5DE",
+        indigo: { DEFAULT: "#0E7C56", dark: "#0A5F42", soft: "#E6F4EE" },
+        amber: { DEFAULT: "#D4A017", dark: "#A87D12", soft: "#FBF1D6" }
       },
       fontFamily: {
         display: ["var(--font-fraunces)", "ui-serif", "Georgia", "serif"],
@@ -41,11 +33,16 @@ const config: Config = {
         "fade-in": {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" }
+        },
+        "drift": {
+          "0%,100%": { transform: "translate(0,0)" },
+          "50%": { transform: "translate(30px,-20px)" }
         }
       },
       animation: {
         "fade-up": "fade-up 0.6s ease-out both",
-        "fade-in": "fade-in 0.6s ease-out both"
+        "fade-in": "fade-in 0.6s ease-out both",
+        "drift": "drift 14s ease-in-out infinite"
       }
     }
   },
