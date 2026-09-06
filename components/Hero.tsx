@@ -1,54 +1,66 @@
 import SearchBar from "@/components/SearchBar";
-import CategoryChip from "@/components/CategoryChip";
-import QuickTools from "@/components/QuickTools";
+import TiltCard from "@/components/TiltCard";
+import MiniCalculatorPreview from "@/components/MiniCalculatorPreview";
 import Reveal from "@/components/Reveal";
-import { categories } from "@/lib/data";
 
 export default function Hero() {
   return (
     <section className="relative overflow-hidden">
-      {/* Soft background glow — pure CSS, no images, keeps this fast */}
       <div
         aria-hidden="true"
-        className="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[500px] rounded-full bg-indigo/10 dark:bg-indigo/15 blur-3xl pointer-events-none"
+        className="absolute -top-40 -left-24 w-[480px] h-[480px] rounded-full bg-indigo/25 blur-[90px] opacity-40 animate-drift pointer-events-none"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute top-10 -right-20 w-[380px] h-[380px] rounded-full bg-amber/25 blur-[90px] opacity-40 animate-drift pointer-events-none"
+        style={{ animationDelay: "-6s" }}
       />
 
-      <div className="relative max-w-content mx-auto px-6 pt-20 pb-14 flex flex-col items-start">
-        <Reveal>
-          <p className="text-xs font-mono uppercase tracking-widest text-muted mb-4">
-            220+ tools · updated weekly
-          </p>
-        </Reveal>
+      <div className="relative max-w-content mx-auto px-6 pt-20 pb-16 grid lg:grid-cols-[1.05fr_0.95fr] gap-10 items-center">
+        <div>
+          <Reveal>
+            <p className="text-xs font-mono uppercase tracking-widest text-muted mb-4">
+              Free · no sign-up · runs in your browser
+            </p>
+          </Reveal>
 
-        <Reveal delay={1}>
-          <h1 className="font-display text-4xl md:text-6xl leading-[1.08] max-w-3xl mb-6 text-ink dark:text-white">
-            Find the right tool{" "}
-            <span className="italic text-indigo">before</span> you build the wrong workaround.
-          </h1>
-        </Reveal>
+          <Reveal delay={1}>
+            <h1 className="font-display text-4xl md:text-6xl leading-[1.08] mb-6 text-ink dark:text-white">
+              Everyday calculators, <span className="italic text-indigo">done right</span>.
+            </h1>
+          </Reveal>
 
-        <Reveal delay={2}>
-          <p className="text-lg text-muted max-w-xl mb-9 leading-relaxed">
-            MeToolkit is a searchable index of AI and business tools, organized by
-            what they actually do — not by who paid for placement.
-          </p>
-        </Reveal>
+          <Reveal delay={2}>
+            <p className="text-lg text-muted max-w-md mb-9 leading-relaxed">
+              EMI, tax, percentage, age, and cash counting — accurate tools you can
+              trust, with nothing sent to a server.
+            </p>
+          </Reveal>
 
-        <Reveal delay={2} className="w-full flex justify-start">
-          <SearchBar />
-        </Reveal>
+          <Reveal delay={2}>
+            <SearchBar />
+          </Reveal>
 
-        <Reveal delay={3} className="mt-6">
-          <p className="text-xs font-mono uppercase tracking-widest text-muted mb-3">
-            Or jump straight to a tool
-          </p>
-          <QuickTools />
-        </Reveal>
+          <Reveal delay={3} className="mt-10 flex gap-8">
+            <div>
+              <p className="font-mono text-2xl text-ink dark:text-white">6</p>
+              <p className="text-xs text-muted">free tools</p>
+            </div>
+            <div>
+              <p className="font-mono text-2xl text-ink dark:text-white">100%</p>
+              <p className="text-xs text-muted">client-side</p>
+            </div>
+            <div>
+              <p className="font-mono text-2xl text-ink dark:text-white">0</p>
+              <p className="text-xs text-muted">sign-ups</p>
+            </div>
+          </Reveal>
+        </div>
 
-        <Reveal delay={4} className="mt-8 flex flex-wrap gap-3">
-          {categories.slice(0, 6).map((c) => (
-            <CategoryChip key={c.slug} category={c} />
-          ))}
+        <Reveal delay={2} className="flex justify-center">
+          <TiltCard>
+            <MiniCalculatorPreview />
+          </TiltCard>
         </Reveal>
       </div>
     </section>
