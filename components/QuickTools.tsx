@@ -5,8 +5,11 @@ const quickTools = [
   { href: "/cash-counter", label: "Cash Counter", description: "Count Indian notes & coins", icon: "💵" },
   { href: "/tax-calculator", label: "Tax Calculator", description: "Old vs new regime (India)", icon: "🧾" },
   { href: "/emi-calculator", label: "EMI Calculator", description: "Loan EMI & interest", icon: "🏠" },
+  { href: "/gst-calculator", label: "GST Calculator", description: "Add/remove GST, CGST/SGST", icon: "🧮" },
   { href: "/percentage-calculator", label: "Percentage Calculator", description: "3 common percent calcs", icon: "％" },
-  { href: "/age-calculator", label: "Age Calculator", description: "Exact age & next birthday", icon: "🎂" }
+  { href: "/age-calculator", label: "Age Calculator", description: "Exact age & next birthday", icon: "🎂" },
+  { href: "/bmi-calculator", label: "BMI Calculator", description: "Standard WHO BMI categories", icon: "⚖️" },
+  { href: "/unit-converter", label: "Unit Converter", description: "Length, weight, temperature", icon: "🔁" }
 ];
 
 export default function QuickTools() {
