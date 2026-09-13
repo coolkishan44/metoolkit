@@ -1,67 +1,71 @@
-import SearchBar from "@/components/SearchBar";
-import TiltCard from "@/components/TiltCard";
-import MiniCalculatorPreview from "@/components/MiniCalculatorPreview";
-import Reveal from "@/components/Reveal";
+import SearchBar from "./SearchBar";
+import ToolShowcase from "./ToolShowcase";
 
 export default function Hero() {
   return (
     <section className="relative overflow-hidden">
-      <div
+      <span
         aria-hidden="true"
-        className="absolute -top-40 -left-24 w-[480px] h-[480px] rounded-full bg-indigo/25 blur-[90px] opacity-40 animate-drift pointer-events-none"
+        className="pointer-events-none absolute -top-32 -left-32 w-[420px] h-[420px] rounded-full bg-indigo/10 blur-3xl"
       />
-      <div
+      <span
         aria-hidden="true"
-        className="absolute top-10 -right-20 w-[380px] h-[380px] rounded-full bg-amber/25 blur-[90px] opacity-40 animate-drift pointer-events-none"
-        style={{ animationDelay: "-6s" }}
+        className="pointer-events-none absolute top-10 right-0 w-[380px] h-[380px] rounded-full bg-amber/10 blur-3xl"
       />
 
-      <div className="relative max-w-content mx-auto px-6 pt-20 pb-16 grid lg:grid-cols-[1.05fr_0.95fr] gap-10 items-center">
-        <div>
-          <Reveal>
-            <p className="text-xs font-mono uppercase tracking-widest text-muted mb-4">
-              Free · no sign-up · runs in your browser
+      <div className="relative max-w-content mx-auto px-6 py-16 md:py-24">
+        <div className="grid lg:grid-cols-[1fr_400px] gap-12 lg:gap-16 items-center">
+          <div>
+            <p className="text-xs font-mono uppercase tracking-widest text-muted mb-5">
+              Free · No sign-up · Runs in your browser
             </p>
-          </Reveal>
 
-          <Reveal delay={1}>
-            <h1 className="font-display text-4xl md:text-6xl leading-[1.08] mb-6 text-ink dark:text-white">
-              Everyday calculators, <span className="italic text-indigo">done right</span>.
+            <h1 className="font-display text-4xl md:text-5xl lg:text-[3.4rem] leading-[1.08] text-ink dark:text-white mb-6">
+              Everyday calculators,{" "}
+              <em className="italic text-indigo">done right</em>.
             </h1>
-          </Reveal>
 
-          <Reveal delay={2}>
-            <p className="text-lg text-muted max-w-md mb-9 leading-relaxed">
-              EMI, tax, percentage, age, and cash counting — accurate tools you can
-              trust, with nothing sent to a server.
+            <p className="text-muted text-lg leading-relaxed max-w-lg mb-8">
+              EMI, tax, GST, percentage, age, BMI, and cash counting — accurate
+              tools you can trust, with nothing sent to a server.
             </p>
-          </Reveal>
 
-          <Reveal delay={2}>
-            <SearchBar />
-          </Reveal>
+            <div className="max-w-md mb-10">
+              <SearchBar />
+            </div>
 
-          <Reveal delay={3} className="mt-10 flex gap-8">
-            <div>
-              <p className="font-mono text-2xl text-ink dark:text-white">6</p>
-              <p className="text-xs text-muted">free tools</p>
-            </div>
-            <div>
-              <p className="font-mono text-2xl text-ink dark:text-white">100%</p>
-              <p className="text-xs text-muted">client-side</p>
-            </div>
-            <div>
-              <p className="font-mono text-2xl text-ink dark:text-white">0</p>
-              <p className="text-xs text-muted">sign-ups</p>
-            </div>
-          </Reveal>
+            <dl className="flex flex-wrap gap-x-10 gap-y-5">
+              <div>
+                <dt className="text-xs font-mono uppercase tracking-widest text-muted mb-1">
+                  Tools
+                </dt>
+                <dd className="font-mono text-2xl tabular text-ink dark:text-white">
+                  9
+                </dd>
+              </div>
+              <div>
+                <dt className="text-xs font-mono uppercase tracking-widest text-muted mb-1">
+                  Client-side
+                </dt>
+                <dd className="font-mono text-2xl tabular text-ink dark:text-white">
+                  100%
+                </dd>
+              </div>
+              <div>
+                <dt className="text-xs font-mono uppercase tracking-widest text-muted mb-1">
+                  Sign-ups
+                </dt>
+                <dd className="font-mono text-2xl tabular text-ink dark:text-white">
+                  0
+                </dd>
+              </div>
+            </dl>
+          </div>
+
+          <div className="lg:pt-2">
+            <ToolShowcase />
+          </div>
         </div>
-
-        <Reveal delay={2} className="flex justify-center">
-          <TiltCard>
-            <MiniCalculatorPreview />
-          </TiltCard>
-        </Reveal>
       </div>
     </section>
   );
