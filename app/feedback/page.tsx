@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
-const FORM_URL = "https://forms.gle/29kWpEgV6USV2hrG9";
+const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfn6NpVAnUyf1BWw_3hirFT52TfomV_LIKGGKNCvW8dfveIgA/viewform?embedded=true";
+const FORM_URL_DIRECT = "https://docs.google.com/forms/d/e/1FAIpQLSfn6NpVAnUyf1BWw_3hirFT52TfomV_LIKGGKNCvW8dfveIgA/viewform";
 
 export const metadata: Metadata = {
   title: "Feedback & Suggestions",
@@ -58,13 +59,13 @@ export default function FeedbackPage() {
             <p className="text-xs font-mono uppercase tracking-widest text-muted">
               Feedback form
             </p>
-            
-              href={FORM_URL}
+            <a
+              href={FORM_URL_DIRECT}
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs font-medium text-indigo hover:underline shrink-0"
             >
-              Open in new tab →
+              Open in new tab
             </a>
           </div>
 
