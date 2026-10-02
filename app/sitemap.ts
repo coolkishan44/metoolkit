@@ -1,27 +1,51 @@
 import type { MetadataRoute } from "next";
-import { tools, blogPosts } from "@/lib/data";
 
 const siteUrl = "https://metoolkit.vercel.app";
 
+const toolPaths = [
+  "/calculator",
+  "/cash-counter",
+  "/tax-calculator",
+  "/emi-calculator",
+  "/gst-calculator",
+  "/percentage-calculator",
+  "/age-calculator",
+  "/bmi-calculator",
+  "/unit-converter"
+];
+
+const blogPaths = [
+  "/blog/emi-calculator-guide",
+  "/blog/cash-denomination-counter-guide",
+  "/blog/old-vs-new-tax-regime-2026",
+  "/blog/percentage-formulas-guide",
+  "/blog/how-to-calculate-exact-age"
+];
+
+const staticPaths = ["/tools", "/blog", "/about", "/contact", "/privacy", "/terms", "/feedback"];
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes: MetadataRoute.Sitemap = [
-    { url: siteUrl, changeFrequency: "daily", priority: 1 },
-    { url: `${siteUrl}/tools`, changeFrequency: "daily", priority: 0.9 },
-    { url: `${siteUrl}/ai-tools`, changeFrequency: "daily", priority: 0.9 },
-    { url: `${siteUrl}/blog`, changeFrequency: "weekly", priority: 0.7 }
+  const home: MetadataRoute.Sitemap = [
+    { url: siteUrl, changeFrequency: "daily", priority: 1 }
   ];
 
-  const toolRoutes: MetadataRoute.Sitemap = tools.map((t) => ({
-    url: `${siteUrl}/tools/${t.slug}`,
+  const tools: MetadataRoute.Sitemap = toolPaths.map((path) => ({
+    url: `${siteUrl}${path}`,
+    changeFrequency: "weekly",
+    priority: 0.9
+  }));
+
+  const statics: MetadataRoute.Sitemap = staticPaths.map((path) => ({
+    url: `${siteUrl}${path}`,
     changeFrequency: "weekly",
     priority: 0.6
   }));
 
-  const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((p) => ({
-    url: `${siteUrl}/blog/${p.slug}`,
+  const blogs: MetadataRoute.Sitemap = blogPaths.map((path) => ({
+    url: `${siteUrl}${path}`,
     changeFrequency: "monthly",
     priority: 0.5
   }));
 
-  return [...staticRoutes, ...toolRoutes, ...blogRoutes];
+  return [...home, ...tools, ...statics, ...blogs];
 }
